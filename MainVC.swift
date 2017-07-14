@@ -21,17 +21,54 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
 
         tableView.delegate = self
         tableView.dataSource = self
+        
+        attemptFetch()
     }
 
+    // Cell behavior
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemCell
+        configureCell(cell: cell, indexPath: indexPath as NSIndexPath)
+        return cell
+    }
+    
+    // Secondary configure cell function
+    func configureCell(cell: ItemCell, indexPath: NSIndexPath) {
+        
+        // Update cell
+        let item = controller.object(at: indexPath as IndexPath)
+        cell.configureCell(item: item)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        // If there are sections in the table
+        if let sections = controller.sections {
+            
+            // Get the info out of the section and count them
+            let sectionInfo = sections[section]
+            return sectionInfo.numberOfObjects
+        }
+        
+        // If there aren't any, then return 0
         return 0
     }
     
+    // Height of a cell/row
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
+        
+        if let sections = controller.sections {
+            
+            // Return the number of sections in the controller
+            return sections.count
+        }
+        
+        // If there aren't any, then return 0
         return 0
     }
     
@@ -46,6 +83,9 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         
         // Instantiate fetch result controller
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        
+        // Set the controller in the VC to this local controller
+        self.controller = controller
         
         do {
             
@@ -91,6 +131,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
                 let cell = tableView.cellForRow(at: indexPath) as! ItemCell
                 
                 // Update the cell data
+                configureCell(cell: cell, indexPath: indexPath as NSIndexPath)
             }
             break
             
