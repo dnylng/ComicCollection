@@ -22,6 +22,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         tableView.delegate = self
         tableView.dataSource = self
         
+        generateTestData()
         attemptFetch()
     }
 
@@ -147,6 +148,25 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
             break
             
         }
+    }
+    
+    // Test data
+    func generateTestData() {
+        
+        let item = Item(context: context)
+        item.title = "Detective Comics #027"
+        item.price = 11000
+        item.details = "This is the first appearance of the Dark Knight. Pretty cool huh?"
+        
+        let item2 = Item(context: context)
+        item2.title = "Action Comics #001"
+        item2.price = 10000
+        item2.details = "Good ol' Man of Steel comin' in to save the day. Too bad kryptonite is is weakness."
+        
+        let item3 = Item(context: context)
+        item3.title = "Teen Titans #001"
+        item3.price = 8000
+        item3.details = "Teeniest of all the Titans. George Perez run is lookin' real good!"
     }
     
 }

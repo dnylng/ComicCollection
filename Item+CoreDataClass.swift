@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-@objc(Item)
 public class Item: NSManagedObject {
     
     // Any time this item is inserted/created this func will be called
