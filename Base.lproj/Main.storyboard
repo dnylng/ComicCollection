@@ -40,7 +40,7 @@
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemCell" rowHeight="150" id="Z7o-E7-tEv">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemCell" rowHeight="150" id="Z7o-E7-tEv" customClass="ItemCell" customModule="ComicCollection" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Z7o-E7-tEv" id="1Mj-It-siv">
@@ -110,6 +110,12 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="C0z-TC-hIV" secondAttribute="trailing" id="NzU-Nn-IIw"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="details" destination="gfb-oK-edq" id="hhi-qq-qMn"/>
+                                            <outlet property="price" destination="8H2-m9-GwQ" id="C7j-0o-5Vc"/>
+                                            <outlet property="thumb" destination="C7w-ze-CCA" id="Rgl-H8-gKY"/>
+                                            <outlet property="title" destination="qbD-Je-l1D" id="XbB-VM-GIM"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -130,6 +136,10 @@
                             <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="segment" destination="MEA-sg-8wR" id="vkE-a5-LMA"/>
+                        <outlet property="tableView" destination="0c8-vK-SE6" id="0ly-km-N6Z"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -140,7 +150,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="oLP-Nc-1UZ" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Kua-BY-Cav">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Kua-BY-Cav">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
