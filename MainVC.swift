@@ -22,7 +22,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         tableView.delegate = self
         tableView.dataSource = self
         
-        generateTestData()
+//        generateTestData()
         attemptFetch()
     }
 
@@ -167,6 +167,8 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         item3.title = "Teen Titans #001"
         item3.price = 8000
         item3.details = "Teeniest of all the Titans. George Perez run is lookin' real good!"
+        
+        ad.saveContext()
     }
     
 }
