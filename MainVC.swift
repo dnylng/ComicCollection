@@ -62,6 +62,35 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         return 150
     }
     
+    // User selected row
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // Make sure there are objs in our controller
+        if let objs = controller.fetchedObjects, objs.count > 0 {
+            
+            // Perform a segue by passing the selected item
+            let item = objs[indexPath.row]
+            performSegue(withIdentifier: "ItemDetailsVC", sender: item)
+        }
+    }
+    
+    // Preps the segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        // If the segue is called ItemDetailsVC
+        if segue.identifier == "ItemDetailsVC" {
+            
+            // Then set the destination as ItemDetailsVC
+            if let destination = segue.destination as? ItemDetailsVC {
+                
+                // And set the itemToEdit var in ItemDetailsVC to the item being passed in segue
+                if let item = sender as? Item {
+                    destination.itemToEdit = item
+                }
+            }
+        }
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         
         if let sections = controller.sections {
