@@ -9,15 +9,17 @@
 import UIKit
 import CoreData
 
-class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var storePicker: UIPickerView!
     @IBOutlet weak var titleField: CustomTextField!
     @IBOutlet weak var priceField: CustomTextField!
     @IBOutlet weak var detailsFeild: CustomTextField!
+    @IBOutlet weak var thumbImg: UIImageView!
     
     var stores = [Store]()
     var itemToEdit: Item?
+    var imagePicker: UIImagePickerController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +31,9 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         
         storePicker.delegate = self
         storePicker.dataSource = self
+        
+        imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
         
         // Generated stores already, saved in context
 //        let store = Store(context: context)
@@ -134,6 +139,12 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
             item = itemToEdit
         }
         
+        // Set the picture on the item and toImage relationship with image entity
+        let picture = Image(context: context)
+        picture.image = thumbImg.image
+        item.toImage = picture
+        
+        
         if let title = titleField.text {
             item.title = title
         }
@@ -162,6 +173,7 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
             titleField.text = item.title
             priceField.text = "\(item.price)"
             detailsFeild.text = item.details
+            thumbImg.image = item.toImage?.image as? UIImage
             
             if let store = item.toStore {
                 
@@ -180,6 +192,36 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
                 } while (index < stores.count)
             }
         }
+    }
+    
+    // Delete an item
+    @IBAction func deletePressed(_ sender: Any) {
+        
+        if itemToEdit != nil {
+            
+            context.delete(itemToEdit!)
+            ad.saveContext()
+        }
+        
+        navigationController?.popViewController(animated: true)
+        
+    }
+    
+    // Animate selecting an image and adding it
+    @IBAction func addImg(_ sender: Any) {
+        
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    // The image picker controller sets the thumbnail image to new image
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let img = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            
+            thumbImg.image = img
+        }
+        
+        imagePicker.dismiss(animated: true, completion: nil)
     }
     
 }
