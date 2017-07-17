@@ -18,7 +18,15 @@ class ItemCell: UITableViewCell {
     func configureCell(item: Item) {
         
         title.text = item.title
-        price.text = "\(item.price)"
+        
+        // Format the currency based on user's locale settings
+        let formatter = NumberFormatter()
+        formatter.locale = Locale.current
+        formatter.numberStyle = .currency
+        if let formattedPrice = formatter.string(from: item.price as NSNumber) {
+            price.text = "\(formattedPrice)"
+        }
+        
         details.text = item.details
         thumb.image = item.toImage?.image as? UIImage
     }
