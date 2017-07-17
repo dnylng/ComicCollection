@@ -86,6 +86,9 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         // Instantiate fetch result controller
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         
+        // Tells everyone to listen to this controller
+        controller.delegate = self
+        
         // Set the controller in the VC to this local controller
         self.controller = controller
         

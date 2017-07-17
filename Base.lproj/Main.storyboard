@@ -221,6 +221,9 @@
                                 <state key="normal" title="Save Item">
                                     <color key="titleColor" white="0.88" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="saveItemPressed:" destination="5gm-ZY-kWo" eventType="touchUpInside" id="AtC-so-3wE"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Store" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="arX-1Q-zW9">
                                 <rect key="frame" x="102.5" y="256" width="115" height="20"/>

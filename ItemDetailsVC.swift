@@ -114,4 +114,30 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         }
     }
 
+    // Save info once user finishes entering in data
+    @IBAction func saveItemPressed(_ sender: Any) {
+        
+        let item = Item(context: context)
+        
+        if let title = titleField.text {
+            item.title = title
+        }
+        
+        if let price = priceField.text {
+            item.price = (price as NSString).doubleValue
+        }
+        
+        if let details = detailsFeild.text {
+            item.details = details
+        }
+        
+        // Set the store that is selected by the picker; component is column and we only have 1 column
+        item.toStore = stores[storePicker.selectedRow(inComponent: 0)]
+        
+        ad.saveContext()
+        
+        navigationController?.popViewController(animated: true)
+        
+    }
+    
 }
