@@ -110,7 +110,17 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         
         // Sort data that is being fetched based on timestamp
         let dateSort = NSSortDescriptor(key: "created", ascending: false)
-        fetchRequest.sortDescriptors = [dateSort]
+        let priceSort = NSSortDescriptor(key: "price", ascending: true)
+        let titleSort = NSSortDescriptor(key: "title", ascending: true)
+        
+        // Depending on the segment, sort it accordingly
+        if segment.selectedSegmentIndex == 0 {
+            fetchRequest.sortDescriptors = [dateSort]
+        } else if segment.selectedSegmentIndex == 1 {
+            fetchRequest.sortDescriptors = [priceSort]
+        } else if segment.selectedSegmentIndex == 2 {
+            fetchRequest.sortDescriptors = [titleSort]
+        }
         
         // Instantiate fetch result controller
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
@@ -130,6 +140,15 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
             print("\(error)")
         }
         
+    }
+    
+    
+    // When the segment value is changed
+    @IBAction func segmentChanged(_ sender: Any) {
+        
+        // Attempt the fetch again so it can change the sort to the new segment index
+        attemptFetch()
+        tableView.reloadData()
     }
     
     // Whenever tableView is about to update, it'll listen for changes
